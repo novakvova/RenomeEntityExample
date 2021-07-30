@@ -1,6 +1,8 @@
 ﻿using Bogus;
 using EntityRelationsips.Domain;
 using EntityRelationsips.Domain.Entities;
+using EntityRelationsips.Repositories.Abstract;
+using EntityRelationsips.Repositories.Concrate;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -12,54 +14,48 @@ namespace EntityRelationsips
         static AppEFContext context = new AppEFContext();
         static void Main(string[] args)
         {
-            //context.Database.EnsureCreated();
-            context.Database.Migrate();
-            SeedCategory();
+            //TestLesson6();
 
-            //foreach (var item in context.Categories)
+            ICategoryRepository repository =
+                new CategoryRepository(context);
+            //new Repository<Category>(context);
+
+            //var category = new Category();
+            //category.Name = "Сало";
+
+            //repository.Add(category);
+
+            //Category category = repository.FindById(17);
+            //Console.WriteLine(category.Name);
+
+            //var items = repository.Get(x=>x.Name.Contains("B"));
+            //foreach (var item in items)
             //{
             //    Console.WriteLine(item.Name);
             //}
-            SeedProduct();
-            //var query = context.Products.Select(x =>
-            //    new { x.Id, x.Name, CategoryName = x.Category.Name })
-            //    .AsQueryable();
 
-            //string name = "Tasty";
-            //string name = "";
-            //if(!string.IsNullOrEmpty(name))
-            //    query = query.Where(x => x.Name.Contains(name));
+            IProductRepository productRepository = new ProductRepository(context);
+            ICategoryRepository categoryRepository = new CategoryRepository(context);
 
-            //string cat = "Game";
-            //query = query.Where(x => x.CategoryName.Contains(cat));
-
-            //foreach (var p in query.ToList())
-            ////.Include(x=>x.Category))
-            //{
-            //    Console.WriteLine($"Id: {p.Id}\t Name: {p.Name}\t " +
-            //        $"Category: {p.CategoryName}");
-            //}
-
-            SeedUsers();
-            SeedRoles();
-            SeedUserRoles();
-
-            var query = context.Users
-                .Include(x=>x.UserRoles)
-                .ThenInclude(x=>x.Role)
-                .AsQueryable();
-
-            foreach (var user in query)
+            CatalogService catalogService = new CatalogService(categoryRepository, 
+                productRepository);
+            catalogService.AddProduct(new ProducAddModel
             {
-                Console.WriteLine($"UserId: {user.Id}\t UserName: {user.Name}");
-                Console.Write("Roles: ");
-                foreach (var roleUser in user.UserRoles)
-                {
-                    Console.Write($"{roleUser.Role.Name} ");
-                }
-                Console.WriteLine();
-            }
-
+                Category = "Алкоголь",
+                Name = "Самогон",
+                Price = 120.45M
+            }) ;
+            catalogService.AddProduct(new ProducAddModel
+            {
+                Category = "Алкоголь",
+                Name = "Коньяк(Самогон + Кокакола)",
+                Price = 90.45M
+            });
+            //var list = productRepository.Get(x=>x.Price<=10);
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine(item.Name+"\t"+item.Price);
+            //}
         }
         static void SeedCategory()
         {
@@ -175,6 +171,60 @@ namespace EntityRelationsips
                 context.SaveChanges();
             }
             
+        }
+    
+        static void TestLesson6()
+        {
+            //context.Database.EnsureCreated();
+
+            //context.Database.Migrate();
+            //SeedCategory();
+
+            //foreach (var item in context.Categories)
+            //{
+            //    Console.WriteLine(item.Name);
+            //}
+
+            //SeedProduct();
+
+            //var query = context.Products.Select(x =>
+            //    new { x.Id, x.Name, CategoryName = x.Category.Name })
+            //    .AsQueryable();
+
+            //string name = "Tasty";
+            //string name = "";
+            //if(!string.IsNullOrEmpty(name))
+            //    query = query.Where(x => x.Name.Contains(name));
+
+            //string cat = "Game";
+            //query = query.Where(x => x.CategoryName.Contains(cat));
+
+            //foreach (var p in query.ToList())
+            ////.Include(x=>x.Category))
+            //{
+            //    Console.WriteLine($"Id: {p.Id}\t Name: {p.Name}\t " +
+            //        $"Category: {p.CategoryName}");
+            //}
+
+            SeedUsers();
+            SeedRoles();
+            SeedUserRoles();
+
+            var query = context.Users
+                .Include(x => x.UserRoles)
+                .ThenInclude(x => x.Role)
+                .AsQueryable();
+
+            foreach (var user in query)
+            {
+                Console.WriteLine($"UserId: {user.Id}\t UserName: {user.Name}");
+                Console.Write("Roles: ");
+                foreach (var roleUser in user.UserRoles)
+                {
+                    Console.Write($"{roleUser.Role.Name} ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
