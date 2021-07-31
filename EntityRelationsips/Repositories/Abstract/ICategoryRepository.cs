@@ -1,4 +1,4 @@
-﻿using EntityRelationsips.Domain.Entities;
+﻿using MyLib.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

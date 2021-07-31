@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EntityRelationsips.Migrations
+namespace MyLib.Migrations
 {
     public partial class AddtblUserRoles : Migration
     {

@@ -6,16 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityRelationsips.Domain.Entities
+namespace MyLib.Domain.Entities
 {
-    [Table("tblRoles")]
-    public class AppRole
+    [Table("tblUsers")]
+    public class AppUser
     {
         [Key]
         public long Id { get; set; }
 
-        [Required, StringLength(250)]
+        [Required, StringLength(255)]
         public string Name { get; set; }
+
+        [StringLength(20)]
+        public string Phone { get; set; }
         public virtual ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

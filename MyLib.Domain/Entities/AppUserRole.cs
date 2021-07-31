@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityRelationsips.Domain.Entities
+namespace MyLib.Domain.Entities
 {
     [Table("tblUserRoles")]
     public class AppUserRole

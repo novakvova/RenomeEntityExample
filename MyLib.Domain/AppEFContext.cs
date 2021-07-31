@@ -1,4 +1,4 @@
-﻿using EntityRelationsips.Domain.Entities;
+﻿using MyLib.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityRelationsips.Domain
+namespace MyLib.Domain
 {
     public class AppEFContext : DbContext
     {

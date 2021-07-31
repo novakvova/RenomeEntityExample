@@ -6,19 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityRelationsips.Domain.Entities
+namespace MyLib.Domain.Entities
 {
-    [Table("tblProducts")]
-    public class Product
+    [Table("tblCategories")]
+    public class Category
     {
         [Key]
         public long Id { get; protected set; }
 
-        [Required, StringLength(255)]
+        [Required, StringLength(250)]
         public string Name { get; set; }
-        public decimal Price { get; set; }
-        [ForeignKey("Category")]
-        public long CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+
     }
 }

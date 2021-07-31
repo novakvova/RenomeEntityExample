@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityRelationsips.Domain
+namespace MyLib.Domain
 {
     public class DbSetup
     {

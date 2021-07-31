@@ -1,9 +1,9 @@
 ﻿using Bogus;
-using EntityRelationsips.Domain;
-using EntityRelationsips.Domain.Entities;
 using EntityRelationsips.Repositories.Abstract;
 using EntityRelationsips.Repositories.Concrate;
 using Microsoft.EntityFrameworkCore;
+using MyLib.Domain;
+using MyLib.Domain.Entities;
 using System;
 using System.Linq;
 
